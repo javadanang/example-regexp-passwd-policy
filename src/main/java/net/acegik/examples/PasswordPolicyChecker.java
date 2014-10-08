@@ -51,7 +51,7 @@ public class PasswordPolicyChecker {
         }
     }
     
-    public boolean verifyPassword(String password) {
+    public boolean validate(String password) {
         if (password == null) return false;
         return getPasswordPattern().matcher(password).matches();
     }

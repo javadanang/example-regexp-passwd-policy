@@ -17,21 +17,21 @@ public class PasswordPolicyCheckerTest {
     public void test_min_number_of_characters() {
         // case: minNumberOfChars = 8
         checker.setMinNumberOfChars(8);
-        Assert.assertTrue(checker.verifyPassword("12345678"));
-        Assert.assertTrue(checker.verifyPassword("123456789"));
-        Assert.assertFalse(checker.verifyPassword("1234567"));
+        Assert.assertTrue(checker.validate("12345678"));
+        Assert.assertTrue(checker.validate("123456789"));
+        Assert.assertFalse(checker.validate("1234567"));
         
         String seed = "this-string-will-be-clone-and-concat-to-it--";
         StringBuilder sb = new StringBuilder();
         for(int i=0; i<100; i++) {
             sb.append(seed);
         }
-        Assert.assertTrue(checker.verifyPassword(sb.toString()));
+        Assert.assertTrue(checker.validate(sb.toString()));
         
         // case: maxNumberOfChars = 16
         checker.setMaxNumberOfChars(16);
-        Assert.assertTrue(checker.verifyPassword("123456789abcdef0"));
-        Assert.assertFalse(checker.verifyPassword("123456789abcdef0x"));
+        Assert.assertTrue(checker.validate("123456789abcdef0"));
+        Assert.assertFalse(checker.validate("123456789abcdef0x"));
     }
     
     @Test
@@ -48,10 +48,10 @@ public class PasswordPolicyCheckerTest {
         sample_data[1] = sb.toString();
         
         for(String sample:sample_data) {
-            Assert.assertTrue(checker.verifyPassword(sample));
+            Assert.assertTrue(checker.validate(sample));
         }
         
-        Assert.assertFalse(checker.verifyPassword("abcde"));
-        Assert.assertFalse(checker.verifyPassword("abcde fghij"));
+        Assert.assertFalse(checker.validate("abcde"));
+        Assert.assertFalse(checker.validate("abcde fghij"));
     }
 }
